@@ -133,3 +133,41 @@ cor(activity_sleep$TotalActiveMinutes,activity_sleep$TotalMinutesAsleep)
 ### Note
 There is no correlation(-0.06) between daily active time and daily sleep time. 
 We can conclude that daily sleep time only negatively correlated with daily steps.
+
+### Categorizing Users
+Create a datasets with mean_steps,mean_calories, and mean_sleep for each users,
+then categorize their activity status and sleeping status by using the mean value of steps and sleep time.
+I do not compute the mean of TotalActiveMinutes because we just found that active time and sleep time are not correlated.
+
+I categorize the activity status as following:
+
+* Sedentary - Less than 5000 steps a day.
+* Lightly active - Between 5000 and 7499 steps a day.
+* Fairly active - Between 7500 and 9999 steps a day.
+* Very active - More than 10000 steps a day.
+Classification has been made through this [website](https://www.10000steps.org.au/articles/healthy-lifestyles/counting-steps/)
+
+I categorize the sleeping status as following:
+
+* Not adequate-sleep less than 6 hours a day.
+* Adequate-sleep between 6 to 9 hours a day.
+* Too much-sleep more than 9 hours a day.
+Classification has been made through this [website](https://www.sleepfoundation.org/how-sleep-works/how-much-sleep-do-we-really-need)
+
+```{r status}
+mean<-activity_sleep %>% 
+  group_by(Id) %>% 
+  summarize(mean_steps=mean(TotalSteps),mean_calories=mean(Calories),mean_sleep=mean(TotalMinutesAsleep))
+mean<-mean %>% 
+  mutate(Activity_status = case_when(
+    mean_steps < 5000 ~ "Sedentary",
+    mean_steps >= 5000 & mean_steps < 7499 ~ "Lightly active", 
+    mean_steps >= 7500 & mean_steps < 9999 ~ "Fairly active", 
+    mean_steps >= 10000 ~ "Very active"
+  )) %>% 
+  mutate(Sleep_status=case_when(mean_sleep < 360 ~ "Not adequate",
+    mean_sleep >= 360 & mean_sleep <= 540 ~ "Adequate", 
+    mean_sleep > 540 ~ "Too much"))
+mean$Activity_status <- factor(mean$Activity_status, levels = c("Very active", "Fairly active", "Lightly active","Sedentary"))
+
+```
