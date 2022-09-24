@@ -40,3 +40,26 @@ library(dplyr)
 install.packages("GGallyr")
 library(GGally)
 ```
+## Importing and Previwing Dataset
+Since other datasets have either limited observations(weightLogInfo has only 8 observations) or smallunit of time(minuteCaloriesNarrow,minuteIntensitiesNarrow,etc), I will only focus on 5 datasets to complete my analysis:
+
+* dailyActivity
+* dailySteps
+* hourlySteps
+* dailyCalories
+* hourlyCalories
+
+```{r import}
+dailyActivity<-read_csv(file="dailyActivity_merged.csv")
+hourlySteps<-read_csv(file="hourlySteps_merged.csv")
+hourlyCalories<-read_csv(file="hourlyCalories_merged.csv")
+sleepDay<-read_csv(file="sleepDay_merged.csv")
+head(dailyActivity)
+head(hourlySteps)
+head(hourlyCalories)
+head(sleepDay)
+str(dailyActivity)
+str(hourlySteps)
+str(hourlyCalories)
+str(sleepDay)
+```
