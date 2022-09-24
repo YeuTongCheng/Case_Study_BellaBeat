@@ -63,3 +63,44 @@ str(hourlySteps)
 str(hourlyCalories)
 str(sleepDay)
 ```
+## Cleaning Data
+Make sure the datasets have no duplicate or null data.
+
+```{r clean}
+dailyActivity<-dailyActivity %>%
+  distinct(Id,ActivityDate, .keep_all = TRUE) %>% 
+  drop_na()
+hourlyCalories<-hourlyCalories%>% 
+  distinct(Id,ActivityHour, .keep_all = TRUE)%>% 
+  drop_na()
+hourlySteps <-hourlySteps %>% 
+  distinct(Id,ActivityHour, .keep_all = TRUE)%>% 
+  drop_na()
+sleepDay<-sleepDay %>%
+  distinct(Id,SleepDay, .keep_all = TRUE) %>% 
+  drop_na()
+```
+## Formatting Data
+Make sure each dataset have consistent format to prepare for the merger. 
+```{r format}
+dailyActivity<-dailyActivity %>%
+  rename(Date=ActivityDate) %>% 
+  mutate(Date=as.Date(Date, "%m/%d/%y"))
+sleepDay<-sleepDay%>% 
+  rename(Date=SleepDay) %>% 
+  mutate(Date = as.Date(Date, "%m/%d/%y"))
+hourlySteps<-hourlySteps %>%
+  rename(Date_time=ActivityHour) %>% 
+  mutate(Date_time = as.POSIXct(Date_time,format ="%m/%d/%Y %I:%M:%S %p"))
+hourlyCalories<-hourlyCalories%>% 
+  rename(Date_time=ActivityHour) %>% 
+  mutate(Date_time = as.POSIXct(Date_time,format ="%m/%d/%Y %I:%M:%S %p"))
+```
+## Merging Data
+First, merge the hourlyCalories and hourlySteps by using Id and Date_time 
+
+Then, merge the dailyActivity and sleepDay by using Id and Date
+```{r merge}
+activity_sleep <- merge(dailyActivity, sleepDay, by=c ("Id", "Date"))
+hourly_calories_steps <- merge(hourlyCalories, hourlySteps, by=c ("Id", "Date_time"))
+```
