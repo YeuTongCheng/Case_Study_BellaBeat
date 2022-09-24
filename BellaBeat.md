@@ -117,7 +117,10 @@ As we expected, there is a positive correlation between daily steps and calories
 
 ### Chech the correlation between daily steps and daily sleep
 ```{r correlation plot2,echo=FALSE}
-ggplot(activity_sleep,aes(x=TotalSteps,y=TotalMinutesAsleep))+geom_point()+geom_smooth(color = "blue")+labs(title = "Daily steps vs Daily sleep", x = "Daily steps", y= "Daily sleep") 
+ggplot(activity_sleep,aes(x=TotalSteps,y=TotalMinutesAsleep))+
+geom_point()+
+geom_smooth(color = "blue")+
+labs(title = "Daily steps vs Daily sleep", x = "Daily steps", y= "Daily sleep") 
 cor(activity_sleep$TotalSteps,activity_sleep$TotalMinutesAsleep)
 ```
 ### Note
@@ -127,7 +130,9 @@ There is a slightly negative correlation(-0.19) between daily steps and daily sl
 ```{r correlation plot,echo=FALSE}
 activity_sleep<-activity_sleep %>% 
   mutate(TotalActiveMinutes=VeryActiveMinutes+FairlyActiveMinutes+LightlyActiveMinutes)
-ggplot(activity_sleep,aes(x=TotalActiveMinutes,y=TotalMinutesAsleep))+geom_point()+geom_smooth(color = "blue")+labs(title = "Daily activity vs Daily sleep", x = "Daily activity", y= "Daily sleep") 
+ggplot(activity_sleep,aes(x=TotalActiveMinutes,y=TotalMinutesAsleep))+
+geom_point()+
+geom_smooth(color = "blue")+labs(title = "Daily activity vs Daily sleep", x = "Daily activity", y= "Daily sleep") 
 cor(activity_sleep$TotalActiveMinutes,activity_sleep$TotalMinutesAsleep)
 ```
 ### Note
