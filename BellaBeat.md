@@ -105,7 +105,9 @@ activity_sleep <- merge(dailyActivity, sleepDay, by=c ("Id", "Date"))
 hourly_calories_steps <- merge(hourlyCalories, hourlySteps, by=c ("Id", "Date_time"))
 ```
 ## Plotting and Analyzing Data-Activity Status vs Sleeping Status
-### Chech the correlation between daily steps and daily calories
+### Check the correlation between daily steps and daily calories
 ```{r correlation plot1,echo=FALSE}
-ggplot(dailyActivity,aes(x=TotalSteps,y=Calories))+geom_point()+geom_smooth(color = "blue")+labs(title = "Daily steps vs Daily calories", x = "Daily steps", y= "Daily calories") 
+ggplot(dailyActivity,aes(x=TotalSteps,y=Calories))+
+geom_point()+geom_smooth(color = "blue")+
+labs(title = "Daily steps vs Daily calories", x = "Daily steps", y= "Daily calories") 
 ```
