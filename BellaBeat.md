@@ -16,3 +16,27 @@ activity, sleep, and stress. The Time watch connects to the Bellabeat app to pro
 daily wellness.
 * Spring: This is a water bottle that tracks daily water intake using smart technology to ensure that you are
 appropriately hydrated throughout the day. The Spring bottle connects to the Bellabeat app to track your hydration levels.
+
+## Data Resource
+The data source used for this case study is  [FitBit Fitness Tracker Data](https://www.kaggle.com/arashnic/fitbit)
+
+This Kaggle data set contains personal fitness tracker from thirty fitbit users. Thirty eligible Fitbit users consented to the submission of personal tracker data, including minute-level output for physical activity, heart rate, and sleep monitoring. It includes information about daily activity, steps, and heart rate that can be used to explore users’ habits.
+
+## Install Packages and Libraries
+I use the following packages for the analysis:
+
+* tidyverse
+* ggplot2
+* dplyr
+* GGallyr
+
+```{r install}
+install.packages("tidyverse")
+library(tidyverse)
+install.packages("ggplot2")
+library(ggplot2)
+install.packages("dplyr")
+library(dplyr)
+install.packages("GGallyr")
+library(GGally)
+```
