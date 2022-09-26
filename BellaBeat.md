@@ -183,3 +183,29 @@ ggplot(mean,aes(x=Sleep_status,fill=Activity_status))+
   geom_bar(position = "dodge") +
   scale_fill_manual(values=c("#003399", "#336699", "#6699CC", "#99CCFF"))
 ```
+### Note
+We can found that only one user sleep too much, who is considered "Sedentary". Moreover, most of the people who are considered "Fairly active" have adequate sleep. However, the sleeping status for users with "Lightly active" and "Very active" activity status has no apparent differentiation. 
+
+### Activity Status Distribution
+Create a pie chart to understand the distribution of users' activity status.
+First, I calculate the percentage of each activity status
+Then, creating a pie chart by using the "percentage_activity" data frame
+```{r percentage of activity status}
+per<-mean %>% 
+  group_by(Activity_status) %>% 
+  summarise(sum_by_status=n()) %>% 
+  mutate(percentage=sum_by_status/sum(sum_by_status))
+percentage_activity<-select(per,Activity_status,percentage)
+percentage_activity$Activity_status <- factor(percentage_activity$Activity_status, levels = c("Very active", "Fairly active", "Lightly active","Sedentary"))
+```
+```{r distribution  pie chart, echo=FALSE}
+ggplot(percentage_activity, aes(x="", y=percentage, fill=Activity_status)) +
+  geom_bar(stat="identity", width=1)+
+  coord_polar("y", start=0) + 
+  geom_text(aes(label = paste0(round(percentage*100), "%")), position = position_stack(vjust =   0.5))+   
+  scale_fill_manual(values=c("#003399", "#336699", "#6699CC", "#99CCFF")) +
+  labs(x = NULL, y = NULL, fill = NULL, title = "Distribution of Activity Status")+ 
+  theme_classic() + 
+  theme(axis.line = element_blank(),axis.text = element_blank(),axis.ticks = element_blank(),
+        plot.title =element_text(hjust = 0.5, color = "#666666"))
+```
