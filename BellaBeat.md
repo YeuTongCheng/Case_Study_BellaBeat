@@ -176,3 +176,10 @@ mean<-mean %>%
 mean$Activity_status <- factor(mean$Activity_status, levels = c("Very active", "Fairly active", "Lightly active","Sedentary"))
 
 ```
+### Creating Bar Chart
+Check the overall sleeping status of users and categorizing with activity status. 
+```{r status plot,echo=FALSE}
+ggplot(mean,aes(x=Sleep_status,fill=Activity_status))+
+  geom_bar(position = "dodge") +
+  scale_fill_manual(values=c("#003399", "#336699", "#6699CC", "#99CCFF"))
+```
