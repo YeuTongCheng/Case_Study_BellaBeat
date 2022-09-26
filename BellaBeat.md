@@ -209,3 +209,6 @@ ggplot(percentage_activity, aes(x="", y=percentage, fill=Activity_status)) +
   theme(axis.line = element_blank(),axis.text = element_blank(),axis.ticks = element_blank(),
         plot.title =element_text(hjust = 0.5, color = "#666666"))
 ```
+## Recommandation
+We can remind users with "Sedentary" activity status to take some walks and let them know the recommended amount of sleep based on the users' age. Moreover, for users with "Lightly active" and "Very active" activity  status, we should collect more data so as to discover more insights for these users. For users with "Fairly active" activity  status, we can notify them of the functions that help users set sleep schedules.
+
