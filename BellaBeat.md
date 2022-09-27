@@ -254,3 +254,49 @@ and low frequency, including the reason that prevent them from using
 devices, their opinion to the products and their working day as well as
 leisure day,etc.
 
+### Note
+
+Half of the users use our devices with high frequency. However, it’s our
+goal to increase users with medium frequency.
+
+### Recommendation
+
+We should collect additional information of users with medium frequency
+and low frequency, including the reason that prevent them from using
+devices, their opinion to the products and their working day as well as
+leisure day,etc.
+
+## Plotting and Analyzing Data-Activity Level Thoughout a Day
+
+I use the “hourly_calories_steps” data frame to determine average of
+activity level in hourly basis.
+
+    ##           Id       Date     Time Calories StepTotal
+    ## 1 1503960366 2016-04-12 00:00:00       81       373
+    ## 2 1503960366 2016-04-12 01:00:00       61       160
+    ## 3 1503960366 2016-04-12 02:00:00       59       151
+    ## 4 1503960366 2016-04-12 03:00:00       47         0
+    ## 5 1503960366 2016-04-12 04:00:00       48         0
+    ## 6 1503960366 2016-04-12 05:00:00       48         0
+
+### Note
+
+Users are most active in 12pm\~2pm and 5\~7pm, and are least active in
+12am\~5am
+
+## Conclusion
+
+To improve users experience and promote our products, we should:
+
+-   Include more users data, since our datasets are relatively small and
+    might be skewed.
+-   Differentiate our marketing strategy based on user activity status,
+    as measured by average steps taken per month.
+-   Collect information from users with low frequency by creating online
+    questionnaires or hosting activities, and come up with solutions to
+    increase usage frequency. We can also collect information from users
+    with medium frequency to identify the differences between these two
+    groups.
+-   Avoid updating our products during the most active hour, and
+    12am\~5am is the most recommended duration to update products.
+
