@@ -212,3 +212,45 @@ ggplot(percentage_activity, aes(x="", y=percentage, fill=Activity_status)) +
 ## Recommandation
 We can remind users with "Sedentary" activity status to take some walks and let them know the recommended amount of sleep based on the users' age. Moreover, for users with "Lightly active" and "Very active" activity  status, we should collect more data so as to discover more insights for these users. For users with "Fairly active" activity  status, we can notify them of the functions that help users set sleep schedules.
 
+## Plotting and Analyzing Data-Usage of Device
+
+### Determine the Distribution of Device Usage Frequency
+
+I calculate the distribution by using “activity_sleep” data frame, and
+categorize the device usage frequency as following:
+
+-   High-use more than 20 days a month.
+-   Medium-use between 20 and 11 days a month.
+-   Low-use less than 11 days a month.
+
+Then, create a pie chart to visualize the distribution of frequency.
+
+``` r
+fre_month<-activity_sleep %>% 
+  group_by(Id) %>% 
+  summarise(total_use=n()) %>% 
+  mutate(usage_freq = case_when(
+    total_use >20 ~ "High",
+    total_use <= 20 & total_use >= 11 ~ "Medium", 
+    total_use < 11 ~ "Low")) 
+fre_month<-select(fre_month,Id,total_use,usage_freq)
+
+fre_month<-fre_month %>%
+  group_by(usage_freq) %>% 
+  summarise(total=n()) %>% 
+  mutate(total_use_per=total/sum(total))
+fre_month$usage_freq <- factor(fre_month$usage_freq, levels = c("High", "Medium", "Low"))
+```
+
+### Note
+
+Half of the users use our devices with high frequency. However, it’s our
+goal to increase users with medium frequency.
+
+### Recommendation
+
+We should collect additional information of users with medium frequency
+and low frequency, including the reason that prevent them from using
+devices, their opinion to the products and their working day as well as
+leisure day,etc.
+
