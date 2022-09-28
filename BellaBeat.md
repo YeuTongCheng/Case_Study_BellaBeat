@@ -319,7 +319,7 @@ str(sleepDay)
 ## Cleaning Data
 Make sure the datasets have no duplicate or null data.
 
-```{r clean}
+``` r
 dailyActivity<-dailyActivity %>%
   distinct(Id,ActivityDate, .keep_all = TRUE) %>% 
   drop_na()
