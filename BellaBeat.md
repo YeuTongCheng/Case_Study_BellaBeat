@@ -40,16 +40,67 @@ I use the following packages for the analysis:
 * dplyr
 * GGallyr
 
-```{r install}
+
+``` r
 install.packages("tidyverse")
+```
+
+    ## Installing package into '/cloud/lib/x86_64-pc-linux-gnu-library/4.2'
+    ## (as 'lib' is unspecified)
+
+``` r
 library(tidyverse)
+```
+
+    ## ── Attaching packages
+    ## ───────────────────────────────────────
+    ## tidyverse 1.3.2 ──
+
+    ## ✔ ggplot2 3.3.6      ✔ purrr   0.3.4 
+    ## ✔ tibble  3.1.8      ✔ dplyr   1.0.10
+    ## ✔ tidyr   1.2.1      ✔ stringr 1.4.1 
+    ## ✔ readr   2.1.2      ✔ forcats 0.5.2 
+    ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+    ## ✖ dplyr::filter() masks stats::filter()
+    ## ✖ dplyr::lag()    masks stats::lag()
+
+``` r
 install.packages("ggplot2")
+```
+
+    ## Installing package into '/cloud/lib/x86_64-pc-linux-gnu-library/4.2'
+    ## (as 'lib' is unspecified)
+
+``` r
 library(ggplot2)
 install.packages("dplyr")
+```
+
+    ## Installing package into '/cloud/lib/x86_64-pc-linux-gnu-library/4.2'
+    ## (as 'lib' is unspecified)
+
+``` r
 library(dplyr)
 install.packages("GGallyr")
+```
+
+    ## Installing package into '/cloud/lib/x86_64-pc-linux-gnu-library/4.2'
+    ## (as 'lib' is unspecified)
+
+    ## Warning: package 'GGallyr' is not available for this version of R
+    ## 
+    ## A version of this package for your version of R might be available elsewhere,
+    ## see the ideas at
+    ## https://cran.r-project.org/doc/manuals/r-patched/R-admin.html#Installing-packages
+
+``` r
 library(GGally)
 ```
+
+    ## Registered S3 method overwritten by 'GGally':
+    ##   method from   
+    ##   +.gg   ggplot2
+
 ## Importing and Previwing Dataset
 Since other datasets have either limited observations(weightLogInfo has only 8 observations) or smallunit of time(minuteCaloriesNarrow,minuteIntensitiesNarrow,etc), I will only focus on 5 datasets to complete my analysis:
 
