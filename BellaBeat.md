@@ -66,21 +66,21 @@ library(tidyverse)
 
 ``` r
 install.packages("ggplot2")
-```
-
-    ## Installing package into '/cloud/lib/x86_64-pc-linux-gnu-library/4.2'
-    ## (as 'lib' is unspecified)
-
-``` r
 library(ggplot2)
-install.packages("dplyr")
 ```
 
     ## Installing package into '/cloud/lib/x86_64-pc-linux-gnu-library/4.2'
     ## (as 'lib' is unspecified)
 
 ``` r
+install.packages("dplyr")
 library(dplyr)
+```
+
+    ## Installing package into '/cloud/lib/x86_64-pc-linux-gnu-library/4.2'
+    ## (as 'lib' is unspecified)
+
+``` r
 install.packages("GGallyr")
 ```
 
