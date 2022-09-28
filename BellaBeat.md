@@ -110,20 +110,212 @@ Since other datasets have either limited observations(weightLogInfo has only 8 o
 * dailyCalories
 * hourlyCalories
 
-```{r import}
+``` r
 dailyActivity<-read_csv(file="dailyActivity_merged.csv")
+```
+
+    ## Rows: 940 Columns: 15
+    ## ── Column specification ────────────────────────────────────────────────────────
+    ## Delimiter: ","
+    ## chr  (1): ActivityDate
+    ## dbl (14): Id, TotalSteps, TotalDistance, TrackerDistance, LoggedActivitiesDi...
+    ## 
+    ## ℹ Use `spec()` to retrieve the full column specification for this data.
+    ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+
+``` r
 hourlySteps<-read_csv(file="hourlySteps_merged.csv")
+```
+
+    ## Rows: 22099 Columns: 3
+    ## ── Column specification ────────────────────────────────────────────────────────
+    ## Delimiter: ","
+    ## chr (1): ActivityHour
+    ## dbl (2): Id, StepTotal
+    ## 
+    ## ℹ Use `spec()` to retrieve the full column specification for this data.
+    ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+
+``` r
 hourlyCalories<-read_csv(file="hourlyCalories_merged.csv")
+```
+
+    ## Rows: 22099 Columns: 3
+    ## ── Column specification ────────────────────────────────────────────────────────
+    ## Delimiter: ","
+    ## chr (1): ActivityHour
+    ## dbl (2): Id, Calories
+    ## 
+    ## ℹ Use `spec()` to retrieve the full column specification for this data.
+    ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+
+``` r
 sleepDay<-read_csv(file="sleepDay_merged.csv")
+```
+
+    ## Rows: 413 Columns: 5
+    ## ── Column specification ────────────────────────────────────────────────────────
+    ## Delimiter: ","
+    ## chr (1): SleepDay
+    ## dbl (4): Id, TotalSleepRecords, TotalMinutesAsleep, TotalTimeInBed
+    ## 
+    ## ℹ Use `spec()` to retrieve the full column specification for this data.
+    ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+
+``` r
 head(dailyActivity)
+```
+
+    ## # A tibble: 6 × 15
+    ##       Id Activ…¹ Total…² Total…³ Track…⁴ Logge…⁵ VeryA…⁶ Moder…⁷ Light…⁸ Seden…⁹
+    ##    <dbl> <chr>     <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
+    ## 1 1.50e9 4/12/2…   13162    8.5     8.5        0    1.88   0.550    6.06       0
+    ## 2 1.50e9 4/13/2…   10735    6.97    6.97       0    1.57   0.690    4.71       0
+    ## 3 1.50e9 4/14/2…   10460    6.74    6.74       0    2.44   0.400    3.91       0
+    ## 4 1.50e9 4/15/2…    9762    6.28    6.28       0    2.14   1.26     2.83       0
+    ## 5 1.50e9 4/16/2…   12669    8.16    8.16       0    2.71   0.410    5.04       0
+    ## 6 1.50e9 4/17/2…    9705    6.48    6.48       0    3.19   0.780    2.51       0
+    ## # … with 5 more variables: VeryActiveMinutes <dbl>, FairlyActiveMinutes <dbl>,
+    ## #   LightlyActiveMinutes <dbl>, SedentaryMinutes <dbl>, Calories <dbl>, and
+    ## #   abbreviated variable names ¹​ActivityDate, ²​TotalSteps, ³​TotalDistance,
+    ## #   ⁴​TrackerDistance, ⁵​LoggedActivitiesDistance, ⁶​VeryActiveDistance,
+    ## #   ⁷​ModeratelyActiveDistance, ⁸​LightActiveDistance, ⁹​SedentaryActiveDistance
+
+``` r
 head(hourlySteps)
+```
+
+    ## # A tibble: 6 × 3
+    ##           Id ActivityHour          StepTotal
+    ##        <dbl> <chr>                     <dbl>
+    ## 1 1503960366 4/12/2016 12:00:00 AM       373
+    ## 2 1503960366 4/12/2016 1:00:00 AM        160
+    ## 3 1503960366 4/12/2016 2:00:00 AM        151
+    ## 4 1503960366 4/12/2016 3:00:00 AM          0
+    ## 5 1503960366 4/12/2016 4:00:00 AM          0
+    ## 6 1503960366 4/12/2016 5:00:00 AM          0
+
+``` r
 head(hourlyCalories)
+```
+
+    ## # A tibble: 6 × 3
+    ##           Id ActivityHour          Calories
+    ##        <dbl> <chr>                    <dbl>
+    ## 1 1503960366 4/12/2016 12:00:00 AM       81
+    ## 2 1503960366 4/12/2016 1:00:00 AM        61
+    ## 3 1503960366 4/12/2016 2:00:00 AM        59
+    ## 4 1503960366 4/12/2016 3:00:00 AM        47
+    ## 5 1503960366 4/12/2016 4:00:00 AM        48
+    ## 6 1503960366 4/12/2016 5:00:00 AM        48
+
+``` r
 head(sleepDay)
+```
+
+    ## # A tibble: 6 × 5
+    ##           Id SleepDay              TotalSleepRecords TotalMinutesAsleep TotalT…¹
+    ##        <dbl> <chr>                             <dbl>              <dbl>    <dbl>
+    ## 1 1503960366 4/12/2016 12:00:00 AM                 1                327      346
+    ## 2 1503960366 4/13/2016 12:00:00 AM                 2                384      407
+    ## 3 1503960366 4/15/2016 12:00:00 AM                 1                412      442
+    ## 4 1503960366 4/16/2016 12:00:00 AM                 2                340      367
+    ## 5 1503960366 4/17/2016 12:00:00 AM                 1                700      712
+    ## 6 1503960366 4/19/2016 12:00:00 AM                 1                304      320
+    ## # … with abbreviated variable name ¹​TotalTimeInBed
+
+``` r
 str(dailyActivity)
+```
+
+    ## spec_tbl_df [940 × 15] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+    ##  $ Id                      : num [1:940] 1.5e+09 1.5e+09 1.5e+09 1.5e+09 1.5e+09 ...
+    ##  $ ActivityDate            : chr [1:940] "4/12/2016" "4/13/2016" "4/14/2016" "4/15/2016" ...
+    ##  $ TotalSteps              : num [1:940] 13162 10735 10460 9762 12669 ...
+    ##  $ TotalDistance           : num [1:940] 8.5 6.97 6.74 6.28 8.16 ...
+    ##  $ TrackerDistance         : num [1:940] 8.5 6.97 6.74 6.28 8.16 ...
+    ##  $ LoggedActivitiesDistance: num [1:940] 0 0 0 0 0 0 0 0 0 0 ...
+    ##  $ VeryActiveDistance      : num [1:940] 1.88 1.57 2.44 2.14 2.71 ...
+    ##  $ ModeratelyActiveDistance: num [1:940] 0.55 0.69 0.4 1.26 0.41 ...
+    ##  $ LightActiveDistance     : num [1:940] 6.06 4.71 3.91 2.83 5.04 ...
+    ##  $ SedentaryActiveDistance : num [1:940] 0 0 0 0 0 0 0 0 0 0 ...
+    ##  $ VeryActiveMinutes       : num [1:940] 25 21 30 29 36 38 42 50 28 19 ...
+    ##  $ FairlyActiveMinutes     : num [1:940] 13 19 11 34 10 20 16 31 12 8 ...
+    ##  $ LightlyActiveMinutes    : num [1:940] 328 217 181 209 221 164 233 264 205 211 ...
+    ##  $ SedentaryMinutes        : num [1:940] 728 776 1218 726 773 ...
+    ##  $ Calories                : num [1:940] 1985 1797 1776 1745 1863 ...
+    ##  - attr(*, "spec")=
+    ##   .. cols(
+    ##   ..   Id = col_double(),
+    ##   ..   ActivityDate = col_character(),
+    ##   ..   TotalSteps = col_double(),
+    ##   ..   TotalDistance = col_double(),
+    ##   ..   TrackerDistance = col_double(),
+    ##   ..   LoggedActivitiesDistance = col_double(),
+    ##   ..   VeryActiveDistance = col_double(),
+    ##   ..   ModeratelyActiveDistance = col_double(),
+    ##   ..   LightActiveDistance = col_double(),
+    ##   ..   SedentaryActiveDistance = col_double(),
+    ##   ..   VeryActiveMinutes = col_double(),
+    ##   ..   FairlyActiveMinutes = col_double(),
+    ##   ..   LightlyActiveMinutes = col_double(),
+    ##   ..   SedentaryMinutes = col_double(),
+    ##   ..   Calories = col_double()
+    ##   .. )
+    ##  - attr(*, "problems")=<externalptr>
+
+``` r
 str(hourlySteps)
+```
+
+    ## spec_tbl_df [22,099 × 3] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+    ##  $ Id          : num [1:22099] 1.5e+09 1.5e+09 1.5e+09 1.5e+09 1.5e+09 ...
+    ##  $ ActivityHour: chr [1:22099] "4/12/2016 12:00:00 AM" "4/12/2016 1:00:00 AM" "4/12/2016 2:00:00 AM" "4/12/2016 3:00:00 AM" ...
+    ##  $ StepTotal   : num [1:22099] 373 160 151 0 0 ...
+    ##  - attr(*, "spec")=
+    ##   .. cols(
+    ##   ..   Id = col_double(),
+    ##   ..   ActivityHour = col_character(),
+    ##   ..   StepTotal = col_double()
+    ##   .. )
+    ##  - attr(*, "problems")=<externalptr>
+
+``` r
 str(hourlyCalories)
+```
+
+    ## spec_tbl_df [22,099 × 3] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+    ##  $ Id          : num [1:22099] 1.5e+09 1.5e+09 1.5e+09 1.5e+09 1.5e+09 ...
+    ##  $ ActivityHour: chr [1:22099] "4/12/2016 12:00:00 AM" "4/12/2016 1:00:00 AM" "4/12/2016 2:00:00 AM" "4/12/2016 3:00:00 AM" ...
+    ##  $ Calories    : num [1:22099] 81 61 59 47 48 48 48 47 68 141 ...
+    ##  - attr(*, "spec")=
+    ##   .. cols(
+    ##   ..   Id = col_double(),
+    ##   ..   ActivityHour = col_character(),
+    ##   ..   Calories = col_double()
+    ##   .. )
+    ##  - attr(*, "problems")=<externalptr>
+
+``` r
 str(sleepDay)
 ```
+
+    ## spec_tbl_df [413 × 5] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+    ##  $ Id                : num [1:413] 1.5e+09 1.5e+09 1.5e+09 1.5e+09 1.5e+09 ...
+    ##  $ SleepDay          : chr [1:413] "4/12/2016 12:00:00 AM" "4/13/2016 12:00:00 AM" "4/15/2016 12:00:00 AM" "4/16/2016 12:00:00 AM" ...
+    ##  $ TotalSleepRecords : num [1:413] 1 2 1 2 1 1 1 1 1 1 ...
+    ##  $ TotalMinutesAsleep: num [1:413] 327 384 412 340 700 304 360 325 361 430 ...
+    ##  $ TotalTimeInBed    : num [1:413] 346 407 442 367 712 320 377 364 384 449 ...
+    ##  - attr(*, "spec")=
+    ##   .. cols(
+    ##   ..   Id = col_double(),
+    ##   ..   SleepDay = col_character(),
+    ##   ..   TotalSleepRecords = col_double(),
+    ##   ..   TotalMinutesAsleep = col_double(),
+    ##   ..   TotalTimeInBed = col_double()
+    ##   .. )
+    ##  - attr(*, "problems")=<externalptr>
+
 ## Cleaning Data
 Make sure the datasets have no duplicate or null data.
 
