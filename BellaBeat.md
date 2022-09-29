@@ -381,7 +381,7 @@ hourly_calories_steps <- merge(hourlyCalories, hourlySteps, by=c ("Id", "Date_ti
     ## Multiple R-squared:   0.35,  Adjusted R-squared:  0.3493 
     ## F-statistic:   505 on 1 and 938 DF,  p-value: < 2.2e-16
 
-## Check the statistical significance and create diagnostic plots
+### Check the statistical significance and create diagnostic plots
 
     ## 
     ## Call:
