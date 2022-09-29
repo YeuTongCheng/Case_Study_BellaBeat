@@ -359,7 +359,6 @@ hourly_calories_steps <- merge(hourlyCalories, hourlySteps, by=c ("Id", "Date_ti
 ```
 ## Plotting and Analyzing Data-Activity Status vs Sleeping Status
 ### Check the correlation between daily steps and daily calories
- ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
 
 ![](README_figs/README-correlation%20plot1-1.png)<!-- -->
 
@@ -404,8 +403,6 @@ hourly_calories_steps <- merge(hourlyCalories, hourlySteps, by=c ("Id", "Date_ti
     ## F-statistic:   505 on 1 and 938 DF,  p-value: < 2.2e-16
 
 ![](README_figs/README-lm1%20&%20diagnostic-1.png)<!-- -->
-
-    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
 ![](README_figs/README-lm1%20&%20diagnostic-2.png)<!-- -->
 
