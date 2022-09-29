@@ -335,7 +335,7 @@ sleepDay<-sleepDay %>%
 ```
 ## Formatting Data
 Make sure each dataset have consistent format to prepare for the merger. 
-```{r format}
+``` r
 dailyActivity<-dailyActivity %>%
   rename(Date=ActivityDate) %>% 
   mutate(Date=as.Date(Date, "%m/%d/%y"))
@@ -353,17 +353,62 @@ hourlyCalories<-hourlyCalories%>%
 First, merge the hourlyCalories and hourlySteps by using Id and Date_time 
 
 Then, merge the dailyActivity and sleepDay by using Id and Date
-```{r merge}
+``` r
 activity_sleep <- merge(dailyActivity, sleepDay, by=c ("Id", "Date"))
 hourly_calories_steps <- merge(hourlyCalories, hourlySteps, by=c ("Id", "Date_time"))
 ```
 ## Plotting and Analyzing Data-Activity Status vs Sleeping Status
 ### Check the correlation between daily steps and daily calories
-```{r correlation plot1,echo=FALSE}
-ggplot(dailyActivity,aes(x=TotalSteps,y=Calories))+
-geom_point()+geom_smooth(color = "blue")+
-labs(title = "Daily steps vs Daily calories", x = "Daily steps", y= "Daily calories") 
-```
+ ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+
+![](README_figs/README-correlation%20plot1-1.png)<!-- -->
+
+    ## 
+    ## Call:
+    ## lm(formula = TotalSteps ~ Calories, data = dailyActivity)
+    ## 
+    ## Residuals:
+    ##     Min      1Q  Median      3Q     Max 
+    ## -9148.1 -3133.3  -395.9  2536.3 26762.0 
+    ## 
+    ## Coefficients:
+    ##               Estimate Std. Error t value Pr(>|t|)    
+    ## (Intercept) -2015.1016   449.9353  -4.479 8.44e-06 ***
+    ## Calories        4.1904     0.1865  22.472  < 2e-16 ***
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Residual standard error: 4104 on 938 degrees of freedom
+    ## Multiple R-squared:   0.35,  Adjusted R-squared:  0.3493 
+    ## F-statistic:   505 on 1 and 938 DF,  p-value: < 2.2e-16
+
+## Check the statistical significance and create diagnostic plots
+
+    ## 
+    ## Call:
+    ## lm(formula = TotalSteps ~ Calories, data = dailyActivity)
+    ## 
+    ## Residuals:
+    ##     Min      1Q  Median      3Q     Max 
+    ## -9148.1 -3133.3  -395.9  2536.3 26762.0 
+    ## 
+    ## Coefficients:
+    ##               Estimate Std. Error t value Pr(>|t|)    
+    ## (Intercept) -2015.1016   449.9353  -4.479 8.44e-06 ***
+    ## Calories        4.1904     0.1865  22.472  < 2e-16 ***
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Residual standard error: 4104 on 938 degrees of freedom
+    ## Multiple R-squared:   0.35,  Adjusted R-squared:  0.3493 
+    ## F-statistic:   505 on 1 and 938 DF,  p-value: < 2.2e-16
+
+![](README_figs/README-lm1%20&%20diagnostic-1.png)<!-- -->
+
+    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+
+![](README_figs/README-lm1%20&%20diagnostic-2.png)<!-- -->
+
 ### Note
 As we expected, there is a positive correlation between daily steps and calories burned (the more steps walked the more calories may be burned)
 
