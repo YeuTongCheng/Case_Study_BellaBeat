@@ -4,10 +4,20 @@ Nicole
 2022-09-14
 
 ## About The Company
-Urška Sršen and Sando Mur founded Bellabeat, a high-tech company that manufactures health-focused smart products. Sršen used her background as an artist to develop beautifully designed technology that informs and inspires women around the world. Collecting data on activity, sleep, stress, and reproductive health has allowed Bellabeat to empower women with knowledge about their own health and habits. Since it was founded in 2013, Bellabeat has grown rapidly and quickly positioned itself as a tech-driven wellness company for women.
+
+Urška Sršen and Sando Mur founded Bellabeat, a high-tech company that
+manufactures health-focused smart products. Sršen used her background as
+an artist to develop beautifully designed technology that informs and
+inspires women around the world. Collecting data on activity, sleep,
+stress, and reproductive health has allowed Bellabeat to empower women
+with knowledge about their own health and habits. Since it was founded
+in 2013, Bellabeat has grown rapidly and quickly positioned itself as a
+tech-driven wellness company for women.
 
 ## Business Task
-Analyze smart device usage data in order to gain insight into how consumers use non-Bellabeat smart devices.
+
+Analyze smart device usage data in order to gain insight into how
+consumers use non-Bellabeat smart devices.
 
 Bellabeat product:
 
@@ -27,19 +37,27 @@ Bellabeat product:
     smart technology to ensure that you are appropriately hydrated
     throughout the day. The Spring bottle connects to the Bellabeat app
     to track your hydration levels.
-## Data Resource
-The data source used for this case study is  [FitBit Fitness Tracker Data](https://www.kaggle.com/arashnic/fitbit)
 
-This Kaggle data set contains personal fitness tracker from thirty fitbit users. Thirty eligible Fitbit users consented to the submission of personal tracker data, including minute-level output for physical activity, heart rate, and sleep monitoring. It includes information about daily activity, steps, and heart rate that can be used to explore users’ habits.
+## Data Resource
+
+The data source used for this case study is [FitBit Fitness Tracker
+Data](https://www.kaggle.com/arashnic/fitbit)
+
+This Kaggle data set contains personal fitness tracker from thirty
+fitbit users. Thirty eligible Fitbit users consented to the submission
+of personal tracker data, including minute-level output for physical
+activity, heart rate, and sleep monitoring. It includes information
+about daily activity, steps, and heart rate that can be used to explore
+users’ habits.
 
 ## Install Packages and Libraries
+
 I use the following packages for the analysis:
 
-* tidyverse
-* ggplot2
-* dplyr
-* GGallyr
-
+-   tidyverse
+-   ggplot2
+-   dplyr
+-   GGallyr
 
 ``` r
 install.packages("tidyverse")
@@ -66,21 +84,21 @@ library(tidyverse)
 
 ``` r
 install.packages("ggplot2")
+```
+
+    ## Installing package into '/cloud/lib/x86_64-pc-linux-gnu-library/4.2'
+    ## (as 'lib' is unspecified)
+
+``` r
 library(ggplot2)
-```
-
-    ## Installing package into '/cloud/lib/x86_64-pc-linux-gnu-library/4.2'
-    ## (as 'lib' is unspecified)
-
-``` r
 install.packages("dplyr")
-library(dplyr)
 ```
 
     ## Installing package into '/cloud/lib/x86_64-pc-linux-gnu-library/4.2'
     ## (as 'lib' is unspecified)
 
 ``` r
+library(dplyr)
 install.packages("GGallyr")
 ```
 
@@ -102,13 +120,17 @@ library(GGally)
     ##   +.gg   ggplot2
 
 ## Importing and Previwing Dataset
-Since other datasets have either limited observations(weightLogInfo has only 8 observations) or smallunit of time(minuteCaloriesNarrow,minuteIntensitiesNarrow,etc), I will only focus on 5 datasets to complete my analysis:
 
-* dailyActivity
-* dailySteps
-* hourlySteps
-* dailyCalories
-* hourlyCalories
+Since other datasets have either limited observations(weightLogInfo has
+only 8 observations) or smallunit of
+time(minuteCaloriesNarrow,minuteIntensitiesNarrow,etc), I will only
+focus on 5 datasets to complete my analysis:
+
+-   dailyActivity
+-   dailySteps
+-   hourlySteps
+-   dailyCalories
+-   hourlyCalories
 
 ``` r
 dailyActivity<-read_csv(file="dailyActivity_merged.csv")
@@ -317,6 +339,7 @@ str(sleepDay)
     ##  - attr(*, "problems")=<externalptr>
 
 ## Cleaning Data
+
 Make sure the datasets have no duplicate or null data.
 
 ``` r
@@ -333,8 +356,11 @@ sleepDay<-sleepDay %>%
   distinct(Id,SleepDay, .keep_all = TRUE) %>% 
   drop_na()
 ```
+
 ## Formatting Data
-Make sure each dataset have consistent format to prepare for the merger. 
+
+Make sure each dataset have consistent format to prepare for the merger.
+
 ``` r
 dailyActivity<-dailyActivity %>%
   rename(Date=ActivityDate) %>% 
@@ -349,16 +375,24 @@ hourlyCalories<-hourlyCalories%>%
   rename(Date_time=ActivityHour) %>% 
   mutate(Date_time = as.POSIXct(Date_time,format ="%m/%d/%Y %I:%M:%S %p"))
 ```
+
 ## Merging Data
-First, merge the hourlyCalories and hourlySteps by using Id and Date_time 
+
+First, merge the hourlyCalories and hourlySteps by using Id and
+Date_time
 
 Then, merge the dailyActivity and sleepDay by using Id and Date
+
 ``` r
 activity_sleep <- merge(dailyActivity, sleepDay, by=c ("Id", "Date"))
 hourly_calories_steps <- merge(hourlyCalories, hourlySteps, by=c ("Id", "Date_time"))
 ```
+
 ## Plotting and Analyzing Data-Activity Status vs Sleeping Status
+
 ### Check the correlation between daily steps and daily calories
+
+    ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
 
 ![](README_figs/README-correlation%20plot1-1.png)<!-- -->
 
@@ -381,7 +415,7 @@ hourly_calories_steps <- merge(hourlyCalories, hourlySteps, by=c ("Id", "Date_ti
     ## Multiple R-squared:   0.35,  Adjusted R-squared:  0.3493 
     ## F-statistic:   505 on 1 and 938 DF,  p-value: < 2.2e-16
 
-### Check the statistical significance and create diagnostic plots
+## Check the statistical significance and create diagnostic plots
 
     ## 
     ## Call:
@@ -404,6 +438,8 @@ hourly_calories_steps <- merge(hourlyCalories, hourlySteps, by=c ("Id", "Date_ti
 
 ![](README_figs/README-lm1%20&%20diagnostic-1.png)<!-- -->
 
+    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+
 ![](README_figs/README-lm1%20&%20diagnostic-2.png)<!-- -->
 
 ### Note
@@ -414,19 +450,9 @@ between daily steps and calories burned, and the daily steps is a
 significant predictor for calories (P-value is statistically
 significant).
 
-### Chech the correlation between daily steps and daily sleep
-```{r correlation plot2,echo=FALSE}
-ggplot(activity_sleep,aes(x=TotalSteps,y=TotalMinutesAsleep))+
-geom_point()+
-geom_smooth(color = "blue")+
-labs(title = "Daily steps vs Daily sleep", x = "Daily steps", y= "Daily sleep") 
-cor(activity_sleep$TotalSteps,activity_sleep$TotalMinutesAsleep)
-```
-### Note
-There is a slightly negative correlation(-0.19) between daily steps and daily sleep time. We can utilize this finding to discover more insights.
-
 ### Check the correlation between daily steps and daily sleep
 
+    ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
 
 ![](README_figs/README-correlation%20plot2-1.png)<!-- -->
 
@@ -450,32 +476,101 @@ There is a slightly negative correlation(-0.19) between daily steps and daily sl
     ## Residual standard error: 4086 on 408 degrees of freedom
     ## Multiple R-squared:  0.03623,    Adjusted R-squared:  0.03387 
     ## F-statistic: 15.34 on 1 and 408 DF,  p-value: 0.0001054
-    
+
+## Check the statistical significance and create diagnostic plots
+
+``` r
+lm2<-lm(TotalSteps~TotalMinutesAsleep,activity_sleep)
+summary(lm2)
+```
+
+    ## 
+    ## Call:
+    ## lm(formula = TotalSteps ~ TotalMinutesAsleep, data = activity_sleep)
+    ## 
+    ## Residuals:
+    ##     Min      1Q  Median      3Q     Max 
+    ## -9279.5 -3116.9   341.4  2692.3 14607.5 
+    ## 
+    ## Coefficients:
+    ##                     Estimate Std. Error t value Pr(>|t|)    
+    ## (Intercept)        11310.899    741.901  15.246  < 2e-16 ***
+    ## TotalMinutesAsleep    -6.670      1.703  -3.916 0.000105 ***
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Residual standard error: 4086 on 408 degrees of freedom
+    ## Multiple R-squared:  0.03623,    Adjusted R-squared:  0.03387 
+    ## F-statistic: 15.34 on 1 and 408 DF,  p-value: 0.0001054
+
+``` r
+ggplot(data = lm2, aes(x = .fitted, y = .resid)) +
+  geom_jitter() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  ggtitle("Residuals vs. Fitted")+
+  xlab("Fitted values") +
+  ylab("Residuals")
+```
+
+![](README_figs/README-lm2-1.png)<!-- -->
+
+``` r
+ggplot(data = lm2, aes(x = .resid)) +
+  geom_histogram() +
+  ggtitle("Histogram of Residuals")+
+  xlab("Residuals")
+```
+
+    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+
+![](README_figs/README-lm2-2.png)<!-- --> \
+### Note 
+According to the diagnostic plots, the two variables have linear relationship. Moreover,
+the correlation (-0.19) between daily steps and daily sleep time is
+slightly negative. Also, according to the linear model, the daily steps
+is a significant predictor for daily sleep time (P-value is
+statistically significant) . We can utilize this finding to discover
+more insights.
+
+### Check the correlation between daily activity and daily sleep
+
+    ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+
+![](README_figs/README-correlation%20plot-1.png)<!-- -->
+
+    ## [1] -0.06929398
+
 ### Note
-There is no correlation(-0.06) between daily active time and daily sleep time. 
-We can conclude that daily sleep time only negatively correlated with daily steps.
+
+There is no correlation(-0.06) between daily active time and daily sleep
+time. Hence, we don’t need to check the statistical significance.
 
 ### Categorizing Users
-Create a datasets with mean_steps,mean_calories, and mean_sleep for each users,
-then categorize their activity status and sleeping status by using the mean value of steps and sleep time.
-I do not compute the mean of TotalActiveMinutes because we just found that active time and sleep time are not correlated.
+
+Create a datasets with mean_steps,mean_calories, and mean_sleep for each
+users, then categorize their activity status and sleeping status by
+using the mean value of steps and sleep time. I do not compute the mean
+of TotalActiveMinutes because we just found that active time and sleep
+time are not correlated.
 
 I categorize the activity status as following:
 
-* Sedentary - Less than 5000 steps a day.
-* Lightly active - Between 5000 and 7499 steps a day.
-* Fairly active - Between 7500 and 9999 steps a day.
-* Very active - More than 10000 steps a day.
-Classification has been made through this [website](https://www.10000steps.org.au/articles/healthy-lifestyles/counting-steps/)
+-   Sedentary - Less than 5000 steps a day.
+-   Lightly active - Between 5000 and 7499 steps a day.
+-   Fairly active - Between 7500 and 9999 steps a day.
+-   Very active - More than 10000 steps a day. Classification has been
+    made through this
+    [website](https://www.10000steps.org.au/articles/healthy-lifestyles/counting-steps/)
 
 I categorize the sleeping status as following:
 
-* Not adequate-sleep less than 6 hours a day.
-* Adequate-sleep between 6 to 9 hours a day.
-* Too much-sleep more than 9 hours a day.
-Classification has been made through this [website](https://www.sleepfoundation.org/how-sleep-works/how-much-sleep-do-we-really-need)
+-   Not adequate-sleep less than 6 hours a day.
+-   Adequate-sleep between 6 to 9 hours a day.
+-   Too much-sleep more than 9 hours a day. Classification has been made
+    through this
+    [website](https://www.sleepfoundation.org/how-sleep-works/how-much-sleep-do-we-really-need)
 
-```{r status}
+``` r
 mean<-activity_sleep %>% 
   group_by(Id) %>% 
   summarize(mean_steps=mean(TotalSteps),mean_calories=mean(Calories),mean_sleep=mean(TotalMinutesAsleep))
@@ -488,25 +583,33 @@ mean<-mean %>%
   )) %>% 
   mutate(Sleep_status=case_when(mean_sleep < 360 ~ "Not adequate",
     mean_sleep >= 360 & mean_sleep <= 540 ~ "Adequate", 
-    mean_sleep > 540 ~ "Too much"))
+    mean_sleep > 540 ~ "Oversleeping"))
 mean$Activity_status <- factor(mean$Activity_status, levels = c("Very active", "Fairly active", "Lightly active","Sedentary"))
+```
 
-```
 ### Creating Bar Chart
-Check the overall sleeping status of users and categorizing with activity status. 
-```{r status plot,echo=FALSE}
-ggplot(mean,aes(x=Sleep_status,fill=Activity_status))+
-  geom_bar(position = "dodge") +
-  scale_fill_manual(values=c("#003399", "#336699", "#6699CC", "#99CCFF"))
-```
+
+Check the overall sleeping status of users and categorizing with
+activity status. ![](README_figs/README-status%20plot-1.png)<!-- -->
+
 ### Note
-We can found that only one user sleep too much, who is considered "Sedentary". Moreover, most of the people who are considered "Fairly active" have adequate sleep. However, the sleeping status for users with "Lightly active" and "Very active" activity status has no apparent differentiation. 
+
+We can found that more than half of the users have adequate amounts of
+sleep, and nearly half of the users have inadequate amounts of sleep.
+Also, only one user has too much sleep, whose activity status is
+considered “Sedentary”. Most of the people whose activity status is
+considered “Fairly active” have adequate sleep. However, the sleeping
+status for users with “Lightly active” and “Very active” activity status
+has no apparent differentiation. Therefore, we need to gain more
+information for these group of users.
 
 ### Activity Status Distribution
-Create a pie chart to understand the distribution of users' activity status.
-First, I calculate the percentage of each activity status
-Then, creating a pie chart by using the "percentage_activity" data frame
-```{r percentage of activity status}
+
+Create a pie chart to understand the distribution of users’ activity
+status. First, I calculate the percentage of each activity status Then,
+creating a pie chart by using the “percentage_activity” data frame
+
+``` r
 per<-mean %>% 
   group_by(Activity_status) %>% 
   summarise(sum_by_status=n()) %>% 
@@ -514,19 +617,10 @@ per<-mean %>%
 percentage_activity<-select(per,Activity_status,percentage)
 percentage_activity$Activity_status <- factor(percentage_activity$Activity_status, levels = c("Very active", "Fairly active", "Lightly active","Sedentary"))
 ```
-```{r distribution  pie chart, echo=FALSE}
-ggplot(percentage_activity, aes(x="", y=percentage, fill=Activity_status)) +
-  geom_bar(stat="identity", width=1)+
-  coord_polar("y", start=0) + 
-  geom_text(aes(label = paste0(round(percentage*100), "%")), position = position_stack(vjust =   0.5))+   
-  scale_fill_manual(values=c("#003399", "#336699", "#6699CC", "#99CCFF")) +
-  labs(x = NULL, y = NULL, fill = NULL, title = "Distribution of Activity Status")+ 
-  theme_classic() + 
-  theme(axis.line = element_blank(),axis.text = element_blank(),axis.ticks = element_blank(),
-        plot.title =element_text(hjust = 0.5, color = "#666666"))
-```
-## Recommandation
-We can remind users with "Sedentary" activity status to take some walks and let them know the recommended amount of sleep based on the users' age. Moreover, for users with "Lightly active" and "Very active" activity  status, we should collect more data so as to discover more insights for these users. For users with "Fairly active" activity  status, we can notify them of the functions that help users set sleep schedules.
+
+![](README_figs/README-distribution%20pie%20chart-1.png)<!-- --> \###
+Note Based on the pie chart, we can see that the activity status of
+users is fairly distributed.
 
 ## Plotting and Analyzing Data-Usage of Device
 
@@ -558,29 +652,14 @@ fre_month<-fre_month %>%
 fre_month$usage_freq <- factor(fre_month$usage_freq, levels = c("High", "Medium", "Low"))
 ```
 
-### Note
-
-Half of the users use our devices with high frequency. However, it’s our
-goal to increase users with medium frequency.
-
-### Recommendation
-
-We should collect additional information of users with medium frequency
-and low frequency, including the reason that prevent them from using
-devices, their opinion to the products and their working day as well as
-leisure day,etc.
+![](README_figs/README-frequency%20pie%20chart-1.png)<!-- -->
 
 ### Note
 
-Half of the users use our devices with high frequency. However, it’s our
-goal to increase users with medium frequency.
-
-### Recommendation
-
-We should collect additional information of users with medium frequency
-and low frequency, including the reason that prevent them from using
-devices, their opinion to the products and their working day as well as
-leisure day,etc.
+Half of the users use smart devices with high frequency. Therefore, our
+major challenge is to motivate users with low frequency to utilize smart
+devices more frequently, thereby increasing the percentage of medium
+frequency users.
 
 ## Plotting and Analyzing Data-Activity Level Thoughout a Day
 
@@ -595,6 +674,8 @@ activity level in hourly basis.
     ## 5 1503960366 2016-04-12 04:00:00       48         0
     ## 6 1503960366 2016-04-12 05:00:00       48         0
 
+![](README_figs/README-daily%20activity%20level-1.png)<!-- -->
+
 ### Note
 
 Users are most active in 12pm\~2pm and 5\~7pm, and are least active in
@@ -604,15 +685,31 @@ Users are most active in 12pm\~2pm and 5\~7pm, and are least active in
 
 To improve users experience and promote our products, we should:
 
--   Include more users data, since our datasets are relatively small and
-    might be skewed.
--   Differentiate our marketing strategy based on user activity status,
-    as measured by average steps taken per month.
--   Collect information from users with low frequency by creating online
-    questionnaires or hosting activities, and come up with solutions to
-    increase usage frequency. We can also collect information from users
-    with medium frequency to identify the differences between these two
-    groups.
--   Avoid updating our products during the most active hour, and
-    12am\~5am is the most recommended duration to update products.
-
+-   Track more users, since the data set is relatively small and might
+    be skewed.
+-   Classify users into 4 different activity status, based on the
+    average steps taken per month. For users with “Sedentary” and
+    “Lightly active” activity status, we can remind them the recommended
+    amount of exercise and count the remaining steps for them to move
+    into the next level, improving their motivation to exercise more
+    frequently.
+-   Remind users with “Sedentary” activity status to take some walks and
+    let them know the recommended amount of sleep based on the users’
+    age. For users with “Fairly active” activity status, we can notify
+    them of the functions that help users set sleep schedules. For users
+    with “Lightly active” and “Very active” activity status, we should
+    collect more data so as to discover more insights for these users.
+-   Encourage users to create profile in our app, thereby increasing our
+    understanding of users. With detailed information, we can
+    differentiate our marketing strategy based on their job, their
+    working day and leisure day, etc.
+-   Create online questionnaire quarterly to gain opinion from users so
+    that we can keep improving our product. Moreover, we should focus on
+    collecting information from users with low and medium usage
+    frequency to identify the factors that set these two groups apart,
+    information such as the reason that influence their usage frequency,
+    their opinion to the products, etc. Based on the information, come
+    up with solutions to increase usage frequency.
+-   Avoid updating our products during the most active hour (12pm\~2pm
+    and 5\~7pm), and 12am\~5am is the most recommended duration to
+    update products.
