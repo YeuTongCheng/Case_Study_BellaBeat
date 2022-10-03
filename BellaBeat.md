@@ -452,8 +452,6 @@ significant).
 
 ### Check the correlation between daily steps and daily sleep
 
-    ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
-
 ![](README_figs/README-correlation%20plot2-1.png)<!-- -->
 
     ## [1] -0.1903439
@@ -521,7 +519,6 @@ ggplot(data = lm2, aes(x = .resid)) +
   xlab("Residuals")
 ```
 
-    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
 ![](README_figs/README-lm2-2.png)<!-- --> \
 ### Note 
@@ -534,7 +531,6 @@ more insights.
 
 ### Check the correlation between daily activity and daily sleep
 
-    ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
 
 ![](README_figs/README-correlation%20plot-1.png)<!-- -->
 
