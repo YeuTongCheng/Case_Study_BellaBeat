@@ -407,7 +407,12 @@ hourly_calories_steps <- merge(hourlyCalories, hourlySteps, by=c ("Id", "Date_ti
 ![](README_figs/README-lm1%20&%20diagnostic-2.png)<!-- -->
 
 ### Note
-As we expected, there is a positive correlation between daily steps and calories burned (the more steps walked the more calories may be burned)
+
+According to the diagnostic plots,the two variables have linear
+relationship. Also, as we expected, there is a positive correlation
+between daily steps and calories burned, and the daily steps is a
+significant predictor for calories (P-value is statistically
+significant).
 
 ### Chech the correlation between daily steps and daily sleep
 ```{r correlation plot2,echo=FALSE}
@@ -420,15 +425,32 @@ cor(activity_sleep$TotalSteps,activity_sleep$TotalMinutesAsleep)
 ### Note
 There is a slightly negative correlation(-0.19) between daily steps and daily sleep time. We can utilize this finding to discover more insights.
 
-### Check the correlation between daily activity and daily sleep
-```{r correlation plot,echo=FALSE}
-activity_sleep<-activity_sleep %>% 
-  mutate(TotalActiveMinutes=VeryActiveMinutes+FairlyActiveMinutes+LightlyActiveMinutes)
-ggplot(activity_sleep,aes(x=TotalActiveMinutes,y=TotalMinutesAsleep))+
-geom_point()+
-geom_smooth(color = "blue")+labs(title = "Daily activity vs Daily sleep", x = "Daily activity", y= "Daily sleep") 
-cor(activity_sleep$TotalActiveMinutes,activity_sleep$TotalMinutesAsleep)
-```
+### Check the correlation between daily steps and daily sleep
+
+
+![](README_figs/README-correlation%20plot2-1.png)<!-- -->
+
+    ## [1] -0.1903439
+
+    ## 
+    ## Call:
+    ## lm(formula = TotalSteps ~ TotalMinutesAsleep, data = activity_sleep)
+    ## 
+    ## Residuals:
+    ##     Min      1Q  Median      3Q     Max 
+    ## -9279.5 -3116.9   341.4  2692.3 14607.5 
+    ## 
+    ## Coefficients:
+    ##                     Estimate Std. Error t value Pr(>|t|)    
+    ## (Intercept)        11310.899    741.901  15.246  < 2e-16 ***
+    ## TotalMinutesAsleep    -6.670      1.703  -3.916 0.000105 ***
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Residual standard error: 4086 on 408 degrees of freedom
+    ## Multiple R-squared:  0.03623,    Adjusted R-squared:  0.03387 
+    ## F-statistic: 15.34 on 1 and 408 DF,  p-value: 0.0001054
+    
 ### Note
 There is no correlation(-0.06) between daily active time and daily sleep time. 
 We can conclude that daily sleep time only negatively correlated with daily steps.
