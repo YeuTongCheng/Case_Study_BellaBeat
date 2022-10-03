@@ -560,8 +560,8 @@ I categorize the activity status as following:
 
 I categorize the sleeping status as following:
 
--   Not adequate-sleep less than 6 hours a day.
--   Adequate-sleep between 6 to 9 hours a day.
+-   Not adequate-sleep less than 7 hours a day.
+-   Adequate-sleep between 7 to 9 hours a day.
 -   Too much-sleep more than 9 hours a day. Classification has been made
     through this
     [website](https://www.sleepfoundation.org/how-sleep-works/how-much-sleep-do-we-really-need)
@@ -577,8 +577,8 @@ mean<-mean %>%
     mean_steps >= 7500 & mean_steps < 9999 ~ "Fairly active", 
     mean_steps >= 10000 ~ "Very active"
   )) %>% 
-  mutate(Sleep_status=case_when(mean_sleep < 360 ~ "Not adequate",
-    mean_sleep >= 360 & mean_sleep <= 540 ~ "Adequate", 
+  mutate(Sleep_status=case_when(mean_sleep < 420 ~ "Not adequate",
+    mean_sleep >= 420 & mean_sleep <= 540 ~ "Adequate", 
     mean_sleep > 540 ~ "Oversleeping"))
 mean$Activity_status <- factor(mean$Activity_status, levels = c("Very active", "Fairly active", "Lightly active","Sedentary"))
 ```
