@@ -359,7 +359,7 @@ sleepDay<-sleepDay %>%
 
 ## Formatting Data
 
-Make sure each dataset have consistent format to prepare for the merger.
+We can find out that all the date and time in datasets have the data type of "character", we need to convert into "datetime" format and make sure each dataset has consistent format in order to prepare for the merger.
 
 ``` r
 dailyActivity<-dailyActivity %>%
